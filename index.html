@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+    <meta charset="utf-8">
+    <title>DVR</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <script src="index.js" defer></script>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css?family=Arvo" rel="stylesheet">
+</head>
+
+<body>
+
+    <h1 id="title">Distance vector routing algorithm</h1>
+    <div class="container">
+        <!--Dividing the screen in 3 containers leftpane, middlepane and rightpane-->
+        <div class="leftpane">
+            <h2>Status</h2>
+            <div class="tables">
+                R3
+                <table>
+                    <tr>
+                        <th>Destination</th>
+                        <th>Distance</th>
+                        <th>Via</th>
+                    </tr>
+                    <tr>
+                        <td>R1</td>
+                        <td id="dR1">10</td>
+                        <td id="vR1">R1</td>
+                    </tr>
+                    <tr>
+                        <td>R2</td>
+                        <td id="dR2">9</td>
+                        <td id="vR2">R2</td>
+                    </tr>
+                    <tr>
+                        <td>R3</td>
+                        <td>0</td>
+                        <td>R3</td>
+                    </tr>
+                    <tr>
+                        <td>R4</td>
+                        <td id="dR4">5</td>
+                        <td id="vR4">R4</td>
+                    </tr>
+                </table><br><br>
+                -----------------------New packet------------------------
+                <br><br>
+                <div id="packet-tables">
+                    <!-- Routing table of R1 -->
+                    <div class="packet packetR1">
+                        R1
+                        <table class="pt">
+                            <tr>
+                                <th>Destination</th>
+                                <th>Distance</th>
+
+                            </tr>
+                            <tr>
+                                <td>R2</td>
+                                <td id="dR1-R2">inf</td>
+
+                            </tr>
+                            <tr>
+                                <td>R3</td>
+                                <td id="dR1-R3">inf</td>
+                            </tr>
+                            <tr>
+                                <td>R4</td>
+                                <td id="dR1-R4">inf</td>
+                            </tr>
+                        </table>
+                    </div>
+                    <!-- Routing table of R2 -->
+                    <div class="packet packetR2">
+                        R2
+                        <table class="pt">
+                            <tr>
+                                <th>Destination</th>
+                                <th>Distance</th>
+                            </tr>
+                            <tr>
+                                <td>R1</td>
+                                <td id="dR2-R1">inf</td>
+                            </tr>
+                            <tr>
+                                <td>R3</td>
+                                <td id="dR2-R3">inf</td>
+                            </tr>
+                            <tr>
+                                <td>R4</td>
+                                <td id="dR2-R4">inf</td>
+                            </tr>
+                        </table>
+                    </div>
+                    <!-- Routing table of R4 -->
+                    <div class="packet packetR4">
+                        R4
+                        <table class="pt">
+                            <tr>
+                                <th>Destination</th>
+                                <th>Distance</th>
+                            </tr>
+                            <tr>
+                                <td>R1</td>
+                                <td id="dR4-R1">inf</td>
+                            </tr>
+                            <tr>
+                                <td>R2</td>
+                                <td id="dR4-R2">inf</td>
+                            </tr>
+                            <tr>
+                                <td>R3</td>
+                                <td id="dR4-R3">inf</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="middlepane">
+            <div class="set">
+                <!--Diagram of the graph-->
+                <img class="link R1-R2" src="https://cdn-icons-png.flaticon.com/512/649/649686.png">
+                <img class="link R1-R3" src="https://cdn-icons-png.flaticon.com/512/649/649686.png">
+                <p id="weight2"></p>
+                <img class="link R2-R3" src="https://cdn-icons-png.flaticon.com/512/649/649686.png">
+                <p id="weight3"></p>
+                <img class="link R3-R4" src="https://cdn-icons-png.flaticon.com/512/649/649686.png">
+                <p id="weight4"></p>
+                <button class="R1 node">R1</button>
+                <button class="R2 node">R2</button>
+                <button class="R3 node">R3</button>
+                <button class="R4 node">R4</button>
+
+
+            </div>
+            <div class="controlset">
+                <!--Buttons for controls-->
+                <button class="control" id="compute">Compute</button>
+                <button class="control" id="update">Update</button>
+                <button class="control" id="reverse">Reverse</button>
+            </div>
+            <!-- Menu in which computed distances of R3 is provided by user -->
+            <div id="computeR3">
+                <!-- Asking for distances of R3 from different nodes after receiving new packet -->
+                Distance of R3 from R1: <input type="text" id="idR1" name="fname" value="" style="width: 1.875rem;"> Via:
+                <input type="text" name="fname" id="ivR1" value="" style="width: 1.875rem;"><br>
+                Distance of R3 from R2: <input type="text" id="idR2" name="fname" value="" style="width: 1.875rem;"> Via:
+                <input type="text" name="fname" id="ivR2" value="" style="width: 1.875rem;"><br>
+                Distance of R3 from R4: <input type="text" id="idR4" name="fname" value="" style="width: 1.875rem;"> Via:
+                <input type="text" name="fname" id="ivR4" value="" style="width: 1.875rem;"><br><br>
+                <button id="submitcompute">Submit</button>
+            </div>
+            <!-- Menu in which updated distances of nodes is provided by user -->
+            <div id="updatenodes">
+                Distance between R1 and R2: <input type="text" id="idR1-R2" name="fname" value=""
+                    style="width: 1.875rem;"><br>
+                Distance between R1 and R3: <input type="text" id="idR1-R3" name="fname" value=""
+                    style="width: 1.875rem;"><br>
+                Distance between R1 and R4: <input type="text" id="idR1-R4" name="fname" value=""
+                    style="width: 1.875rem;"><br>
+                Distance between R2 and R3: <input type="text" id="idR2-R3" name="fname" value=""
+                    style="width: 1.875rem;"><br>
+                Distance between R2 and R4: <input type="text" id="idR2-R4" name="fname" value=""
+                    style="width: 1.875rem;"><br>
+                Distance between R3 and R4: <input type="text" id="idR4-R3" name="fname" value=""
+                    style="width: 1.875rem;"><br><br>
+                <button id="submitupdate">Submit</button>
+            </div>
+            <!-- Menu in which user will enter updated distances after link brokage -->
+            <div id="broke">
+                <table id="my-table" style="width: 50%;">
+                    <thead>
+                        <tr>
+                            <th style="width: 4.375rem;">Source</th>
+                            <th style="width: 4.375rem;">Destination</th>
+                            <th style="width: 4.375rem;">Distance</th>
+                            <th style="width: 4.375rem;">Via</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><input class="break_s" type="text" name="fname" value="" style="width: 4.375rem;"></td>
+                            <td><input class="break_de" type="text" name="fname" value="" style="width: 4.375rem;"></td>
+                            <td><input class="break_di" type="text" name="fname" value="" style="width: 4.375rem;"></td>
+                            <td><input class="break_v" type="text" name="fname" value="" style="width: 4.375rem;"></td>
+                            <td><button class="add-row-btn">+</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <br>
+                <button id="submitreverse">Submit</button>
+            </div>
+        </div>
+        <div class="rightpane">
+            <h2>Log</h2>
+            <!--Empty list in which items will be added in the sequence of work done by user-->
+            <ul>
+
+            </ul>
+        </div>
+    </div>
+
+</body>
+
+</html>

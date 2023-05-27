@@ -1,0 +1,187 @@
+body {
+    text-align: center;
+    background: linear-gradient(#f7a6f0, rgb(253, 181, 195));
+    
+}
+
+h1 {
+    font-size: 5rem;
+    color: black;
+    font-family: "Arvo", cursive;
+    text-shadow: 0.1875rem 0 white;
+    margin:2% auto 2% auto;
+}
+
+/* Styling of packet tables and R3 status table */
+table, th, td {
+    border: 0.0625rem solid black;
+}
+table{
+    margin-left: 28%;
+}
+.pt{
+    margin-left: 31%;
+}
+
+.container {
+    width: 100%;
+    height: 130vh;
+    display: flex;
+}
+
+/* Width,height and background of all panes */
+.leftpane {
+    width: 25%;
+    height: 130vh;
+}
+.middlepane {
+    width: 50%;
+    height: 130vh;
+}
+.rightpane {
+    width: 25%;
+    height: 130vh;
+    background-color: rgb(241, 204, 230);
+}
+
+/* Styling of packets so that each pops at same place when made visible */
+.packet{
+    visibility: hidden;
+}
+.packetR2{
+    position: relative;
+    top:-7.1875rem;
+}
+.packetR4{
+    position: relative;
+    top:-14.375rem;
+}
+
+/* Styling of nodes */
+.node{
+    height: 10%;
+    width: 10%;
+    background-color: white;
+}
+
+/* Styling of control buttons */
+.control{
+    position: relative;
+    top:33.125rem;
+    left:-3.125rem;
+    background-color: rgb(232, 250, 152);
+    height: 2.1875rem;
+    width: 4.6875rem;
+    margin: 0% 5%;
+}
+.control:hover{
+    background-color: rgb(246, 233, 47);
+    cursor: pointer;
+}
+.pressed {
+    box-shadow: 0 0 1.25rem white;
+    background-color: grey;
+}
+
+
+/* Positioning of nodes */
+.R1{
+    position:absolute;
+    top : 16.25rem;
+    left : 28.125rem;
+}
+.R2{
+    position:absolute;
+    top : 27.5rem;
+    left : 28.125rem;
+}
+.R3{
+    position:absolute;
+    top:21.5625rem;
+}
+.R4{
+    position:absolute;
+    top:33.75rem;
+}
+
+/* Positioning of links and weights*/
+.R1-R2{
+    position:absolute;
+    width: 14%;
+    top : 18.125rem;
+    left : 26.25rem;
+}
+#weight1{
+    position:absolute;
+    width: 14%;
+    top : 22.5rem;
+    left : 27.5rem;
+}
+.R1-R3{
+    position:absolute;
+    width: 14%;
+    top : 15rem;
+    left : 36.25rem;
+    rotate: -60deg;
+}
+#weight2{
+    position:absolute;
+    width: 14%;
+    top : 20rem;
+    left : 34.375rem;
+}
+.R2-R3{
+    position:absolute;
+    width: 14%;
+    top : 20rem;
+    left : 36.25rem;
+    rotate: 60deg;
+}
+#weight3{
+    position:absolute;
+    width: 14%;
+    top : 24.6875rem;
+    left : 34.375rem;
+}
+.R3-R4{
+    position:absolute;
+    width: 14%;
+    top : 23.125rem;
+    left : 44.375rem;
+}
+#weight4{
+    position:absolute;
+    width: 14%;
+    top : 28.125rem;
+    left : 43.4375rem;
+}
+
+/* Styling of menus of all controls */
+#computeR3{
+    position: relative;
+    top:36.25rem;
+    left:-3.125rem;
+    visibility: hidden;
+}
+#updatenodes{
+    position: relative;
+    top:29.75rem;
+    left:-3.125rem;
+    visibility: hidden;
+}
+#broke{
+    position: relative;
+    top:18.75rem;
+    left:-3.125rem;
+    visibility: hidden;
+}
+
+/* Styling the content of menu in which user will enter updated distances after link brokage */
+#my-table{
+    margin-left: 25%;
+}
+.add-row-btn {
+    background-color: transparent;
+    font-size: 1.25rem;
+    cursor: pointer;
+}
